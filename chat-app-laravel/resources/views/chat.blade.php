@@ -35,8 +35,10 @@
 
     <!-- Controls -->
     <div class="controls text-center mt-4">
-        <button id="startBtn" class="btn btn-primary">Start Chat</button>
-        <button id="closeBtn" class="btn btn-danger" style="display:none;">End Chat</button>
+        <button id="startBtn">Start Chat</button>
+        <button id="closeBtn" style="display:none;">Close Chat</button>
+        <button id="nextBtn" style="display:none;">Next</button>
+
         <p id="status" class="mt-2 text-muted">Click "Start Chat" to begin</p>
     </div>
 

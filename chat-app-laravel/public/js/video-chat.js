@@ -55,6 +55,7 @@
 
                 startBtn.style.display = 'none';
                 closeBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'inline-block'; // 👈 Show the Next button
             };
 
             ws.onmessage = async (event) => {
@@ -131,6 +132,43 @@
             statusText.textContent = 'Could not access camera or microphone.';
         }
     };
+
+    const nextBtn = document.getElementById('nextBtn');
+
+nextBtn.onclick = () => {
+    console.log(`[${userId}] Next button clicked`);
+
+    // Step 1: End current connection
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    if (ws && partnerId) {
+        ws.send(JSON.stringify({ type: 'skip', to: partnerId }));
+    }
+
+    // ❗ REMOVE this block below if you want to KEEP the camera open:
+    /*
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+    }
+    localVideo.srcObject = null;
+    */
+
+    // Always clear remote video and chat
+    remoteVideo.srcObject = null;
+    chatMessages.innerHTML = '';
+
+    partnerId = null;
+    threadId = null;
+    statusText.textContent = 'Reconnecting...';
+
+    // Step 2: Start new chat
+    startBtn.click(); // Reuse your Start logic
+};
+
 
     // Close connection button clicked
     closeBtn.onclick = () => {
