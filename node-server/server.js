@@ -83,11 +83,11 @@ wss.on('connection', (ws) => {
       }
 
       // Relay WebRTC signaling messages
-      if (['offer', 'answer', 'candidate'].includes(data.type)) {
+      if (['offer', 'answer', 'candidate', 'chat'].includes(data.type)) {
         const to = data.to;
         if (clients.has(to)) {
           clients.get(to).send(JSON.stringify(data));
-          console.log(`Relayed ${data.type} from ${userId} to ${to}`);
+          console.log(`Relayed ${data.type} from ${userId} to ${to}${data.type === 'chat' ? ': ' + data.message : ''}`);
         } else {
           console.log(`Cannot relay ${data.type}. User ${to} not found.`);
         }
@@ -187,6 +187,6 @@ function cryptoRandomUUID() {
 }
 
 // Start the HTTPS server (with WebSocket on top)
-server.listen(8080, '192.168.1.8', () => {
-  console.log('🔒 HTTPS & Secure WebSocket server running on wss://192.168.1.8:8080');
+server.listen(8080, '192.168.1.3', () => {
+  console.log('🔒 HTTPS & Secure WebSocket server running on wss://192.168.1.3:8080');
 });

@@ -46,7 +46,7 @@
 
             console.log(`[${userId}] Creating WebSocket connection...`);
             // Make sure to change this to your signaling server URL:
-            ws = new WebSocket('https://192.168.1.8:8080'); // Use wss:// if your server supports SSL
+            ws = new WebSocket('https://192.168.1.3:8080'); // Use wss:// if your server supports SSL
 
             ws.onopen = () => {
                 console.log(`[${userId}] WebSocket connection opened`);
